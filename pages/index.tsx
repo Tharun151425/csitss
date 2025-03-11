@@ -21,7 +21,7 @@ export default function Index() {
 
   return (
     <>
-     
+
       <section className="body-font m-0 text-gray-600">
         {/* <div className="bar">
           <span className="bar_content">
@@ -61,14 +61,14 @@ export default function Index() {
                     href="https://cmt3.research.microsoft.com/CSITSS2024"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-medium uppercase text-white transition-colors duration-300 ease-in-out hover:bg-blue-500 focus:bg-blue-500 focus:outline-none"
+                    className="inline-flex items-center text-lg justify-center rounded-2xl border border-indigo-600 bg-indigo-600 px-8 py-3 text-white font-semibold transition-colors duration-300 hover:bg-indigo-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 active:bg-indigo-500"
                   >
                     <span>Submit Paper</span>
                   </a>
 
                   <ScrollLink
                     activeClass="active"
-                    className="mt-4 flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-medium uppercase text-white transition-colors duration-300 ease-in-out hover:bg-blue-500 focus:bg-blue-500 focus:outline-none"
+                    className="inline-flex items-center text-lg justify-center rounded-2xl border border-indigo-600 bg-indigo-600 px-8 py-3 text-white font-semibold transition-colors duration-300 hover:bg-indigo-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 active:bg-indigo-500"
                     to="test4"
                     spy={true}
                     smooth={true}
@@ -79,7 +79,7 @@ export default function Index() {
                   </ScrollLink>
                   <a
                     href="CSITSS 2024 Brochure.pdf"
-                    className="mt-4 flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-medium uppercase text-white transition-colors duration-300 ease-in-out hover:bg-blue-500 focus:bg-blue-500 focus:outline-none"
+                    className="inline-flex items-center text-lg justify-center rounded-2xl border border-indigo-600 bg-indigo-600 px-8 py-3 text-white font-semibold transition-colors duration-300 hover:bg-indigo-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 active:bg-indigo-500"
                     download
                   >
                     <span>Download Brochure</span>
@@ -93,7 +93,7 @@ export default function Index() {
           <p className="text-lg font-semibold">
             Organized by{' '}
             <span className="text-blue-700">RV College of Engineering</span>
-            </p>
+          </p>
         </div>
         <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
           <div className="rounded-lg bg-red-100 p-6 text-center text-gray-800 shadow-lg transition-colors duration-300 hover:bg-red-200">
@@ -150,7 +150,7 @@ export default function Index() {
 
             <h3 className="text-2xl font-bold">8 successful editions of CSITSS</h3>
 
-            
+
           </div>
           <div className="rounded-lg bg-yellow-100 p-6 text-center text-gray-800 shadow-lg transition-colors duration-300 hover:bg-yellow-200">
             <svg
@@ -174,101 +174,94 @@ export default function Index() {
 
         <section>
           <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-           
-             
 
-              <div className="animate-fadeIn2 flex flex-col justify-center">
-                <h2 className="text-gradient mb-6 text-3xl font-bold text-black sm:text-4xl">
-                  About CSITSS
-                </h2>
-                <p className="mb-8 text-xl font-normal leading-relaxed text-gray-900">
-                  The 9<sup>th</sup> International Conference on Computational
-                  Systems and Information Technology for Sustainable Solutions
-                  [CSITSS — 2025] focuses on bringing together leading
-                  academicians, scientists, researchers, industry
-                  representatives, postdoctoral fellows, and research scholars
-                  around the world to share their knowledge and research
-                  expertise in Green Electronics, Renewable Energy, Robotics and
-                  Automation,Photonics, Artificial Intelligence, Cyber-Physical
-                  Systems, Quantum Mechanics, and Computing from <span> </span>
-                  <span className="animated-date">
-                    <span> </span>
-                    <span>N</span>
-                    <span>o</span>
-                    <span>v</span>
-                    <span>e</span>
-                    <span>m</span>
-                    <span>b</span>
-                    <span>e</span>
-                    <span>r</span>
-                    <span> </span>
-                    <span>20</span>
-                    <span>
-                      <sup>th</sup>
-                    </span>
-                    <span> </span>
-                    <span>t</span>
-                    <span>o</span>
-                    <span> </span>
-                    <span>22</span>
-                    <span>
-                      <sup>nd</sup>
-                    </span>
-                    <span> </span>
-                    <span>2</span>
-                    <span>0</span>
-                    <span>2</span>
-                    <span>5</span>
+
+
+            <div className="animate-fadeIn2 flex flex-col justify-center">
+              <h2 className="text-gradient mb-6 text-3xl font-bold text-black sm:text-4xl">
+                About CSITSS
+              </h2>
+              <p className="mb-8 text-xl font-normal leading-relaxed text-gray-900">
+                The 9<sup>th</sup> International Conference on Computational
+                Systems and Information Technology for Sustainable Solutions
+                [CSITSS — 2025] focuses on bringing together leading
+                academicians, scientists, researchers, industry
+                representatives, postdoctoral fellows, and research scholars
+                around the world to share their knowledge and research
+                expertise in Green Electronics, Renewable Energy, Robotics and
+                Automation,Photonics, Artificial Intelligence, Cyber-Physical
+                Systems, Quantum Mechanics, and Computing from <span> </span>
+                <span className="animated-date">
+                  <span> </span>
+                  <span>N</span>
+                  <span>o</span>
+                  <span>v</span>
+                  <span>e</span>
+                  <span>m</span>
+                  <span>b</span>
+                  <span>e</span>
+                  <span>r</span>
+                  <span> </span>
+                  <span>20</span>
+                  <span>
+                    <sup>th</sup>
                   </span>
-                  .
-                  <br />
-                  <br />
-                  The conference has been successfully organized for the past
-                  seven years with participants from all over India and abroad.
-                  All peer-reviewed, selected, and presented papers from the
-                  conference will be submitted for possible inclusion in the
-                  IEEE digital library. International speakers will deliver
-                  keynote talks on the latest technologies in these domains. The
-                  CSITSS-2025 ensures to provide a platform for researchers
-                  around the globe for knowledge exchange and networking. 
-                </p>
+                  <span> </span>
+                  <span>t</span>
+                  <span>o</span>
+                  <span> </span>
+                  <span>22</span>
+                  <span>
+                    <sup>nd</sup>
+                  </span>
+                  <span> </span>
+                  <span>2</span>
+                  <span>0</span>
+                  <span>2</span>
+                  <span>5</span>
+                </span>
+                .
+                <br />
+                <br />
+                The conference has been successfully organized for the past
+                seven years with participants from all over India and abroad.
+                All peer-reviewed, selected, and presented papers from the
+                conference will be submitted for possible inclusion in the
+                IEEE digital library. International speakers will deliver
+                keynote talks on the latest technologies in these domains. The
+                CSITSS-2025 ensures to provide a platform for researchers
+                around the globe for knowledge exchange and networking.
+              </p>
 
-                <a
-                  className="inline-flex transform items-center rounded border border-indigo-600 bg-indigo-600 px-8 py-3 text-white shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-                  href="https://cmt3.research.microsoft.com/CSITSS2024"
+              <a
+                className="group px-10 relative mx-auto inline-flex items-center justify-center rounded-md bg-gradient-to-r from-indigo-600 to-indigo-700 py-3 text-lg font-medium text-white shadow-lg transition-all duration-300 hover:from-indigo-700 hover:to-indigo-800 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:translate-y-0.5 active:shadow-md"
+                href="https://cmt3.research.microsoft.com/CSITSS2024"
+              >
+                <span className="relative z-10 pr-5">Submit Paper</span>
+                <svg
+                  className="ml-2 h-8 w-8 transform transition-transform duration-300 group-hover:translate-x-1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  <span className="text-sm font-medium">Submit Paper</span>
-                  <svg
-                    className="ml-3 h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </a>
-              </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+                <span className="absolute inset-0 rounded-md bg-white bg-opacity-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+              </a>
             </div>
+          </div>
 
-            
-            
-         
-              
-            
-          
         </section>
-
-        
 
         <Element name="test4" className="element">
           <div className="flex flex-col items-center justify-center p-4">
-          <Timeline />
+            <Timeline />
           </div>
         </Element>
         <section className="py-16">
@@ -317,53 +310,52 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Action buttons */}
             <div className="animate-fadeIn mt-8 flex flex-col justify-center space-y-4 md:flex-row md:space-y-0 md:space-x-4">
-              <a
-                className="inline-flex items-center justify-center rounded-lg border border-indigo-600 bg-indigo-600 px-8 py-3 text-white transition-colors duration-300 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-                href="https://goo.gl/maps/sXWGV9iXqQRwz2PJ9"
-              >
-                <span className="text-sm font-medium">Open Maps</span>
-                <svg
-                  className="ml-3 h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </a>
-              <a
-                className="inline-flex items-center justify-center rounded-lg border border-indigo-600 bg-indigo-600 px-8 py-3 text-white transition-colors duration-300 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-                href="HOTELS.pdf"
-              >
-                <span className="text-sm font-medium">
-                  Download Hotels List Near RVCE
-                </span>
-                <svg
-                  className="ml-3 h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </a>
-            </div>
+            <a
+  className="inline-flex items-center justify-center rounded-lg border border-indigo-600 bg-indigo-600 px-8 py-3 text-white font-semibold transition-colors duration-300 hover:bg-indigo-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 active:bg-indigo-500 group"
+  href="https://goo.gl/maps/sXWGV9iXqQRwz2PJ9"
+>
+  <span className="text-lg font-medium">Open Maps</span>
+  <svg
+    className="ml-2 h-7 w-7 transform transition-transform duration-300 group-hover:translate-x-3"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M17 8l4 4m0 0l-4 4m4-4H3"
+    />
+  </svg>
+</a>
 
-            {/* Modal for enlarged image */}
+              <a
+  className="inline-flex items-center justify-center rounded-lg border border-indigo-600 bg-indigo-600 px-8 py-3 text-white font-semibold transition-colors duration-300 hover:bg-indigo-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 active:bg-indigo-500 group"
+  href="HOTELS.pdf"
+>
+  <span className="text-lg font-medium">
+    Download Hotels List Near RVCE
+  </span>
+  <svg
+    className="ml-2 h-7 w-7 transform transition-transform duration-300 group-hover:translate-x-3"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M17 8l4 4m0 0l-4 4m4-4H3"
+    />
+  </svg>
+</a>
+       </div>
+
             <div
               id="modal"
               className="fixed inset-0 z-50 flex hidden items-center justify-center bg-black bg-opacity-75"
@@ -397,9 +389,9 @@ export default function Index() {
         `}</style>
 
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-          <h1>
-            <span className="text-3xl font-bold sm:text-4xl">
-              Previous Conference Images
+          <h1 className='pb-5 text-center'>
+            <span className="text-4xl font-bold text-gray-900 mb-2 ">
+              Gallery
             </span>
           </h1>
           <Gallery />

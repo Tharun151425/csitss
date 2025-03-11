@@ -27,14 +27,14 @@ const CustomTimeline = () => {
       label: 'Conference Registration',
       date: '10th October 2025',
     },
-   
+
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setIsVisible(scrollPosition > 50);
-      
+
       const itemHeight = 150;
       const activeItemIndex = Math.floor(scrollPosition / itemHeight);
       setActiveIndex(Math.min(activeItemIndex, data.length - 1));
@@ -58,7 +58,7 @@ const CustomTimeline = () => {
           ${showPopup ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}
       >
         <span className="font-semibold">Coming Soon!</span>
-        <button 
+        <button
           onClick={() => setShowPopup(false)}
           className="text-white hover:text-blue-200 transition-colors"
         >
@@ -66,21 +66,19 @@ const CustomTimeline = () => {
         </button>
       </div>
 
-      <div className={`max-w-5xl mx-auto transition-all duration-700 transform ${
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-      }`}>
+      <div className={`max-w-5xl mx-auto transition-all duration-700 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}>
         <h1 className="text-4xl font-extrabold text-gray-800 text-center mb-16 flex items-center justify-center gap-3">
           <Calendar className="text-blue-600" size={40} />
           Important Dates
         </h1>
-        
+
         <div className="relative pl-8">
           {data.map((item, index) => (
             <div
               key={index}
-              className={`mb-16 transition-all duration-500 ${
-                index <= activeIndex ? 'opacity-100 translate-x-0' : 'opacity-80 -translate-x-4'
-              }`}
+              className={`mb-16 transition-all duration-500 ${index <= activeIndex ? 'opacity-100 translate-x-0' : 'opacity-80 -translate-x-4'
+                }`}
             >
               <div className="flex items-start gap-8">
                 <div className="relative">
@@ -95,7 +93,7 @@ const CustomTimeline = () => {
                       transition-colors duration-500`} />
                   )}
                 </div>
-                
+
                 <div className={`flex-1 pt-3 transition-all duration-500 transform 
                   ${index <= activeIndex ? 'translate-y-0' : 'translate-y-4'}`}>
                   <h3 className="text-2xl font-bold text-gray-900 mb-1">
@@ -107,15 +105,13 @@ const CustomTimeline = () => {
             </div>
           ))}
         </div>
-        
+
         <div className="mt-16 text-center">
           <button
             onClick={handleDownload}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 
-              text-white text-lg font-semibold rounded-full transition-all duration-300 
-              transform hover:scale-105 hover:shadow-xl"
+            className="inline-flex items-center text-lg justify-center rounded-lg border border-indigo-600 bg-indigo-600 px-8 py-3 text-white font-semibold transition-colors duration-300 hover:bg-indigo-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 active:bg-indigo-500"
           >
-            <Download className="w-5 h-5" />
+            <Download className="w-6 h-6 mr-5" />
             Download Pre-Conference Schedule
           </button>
         </div>
