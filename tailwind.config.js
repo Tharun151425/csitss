@@ -9,6 +9,9 @@ module.exports = {
         marquee: 'marquee 25s linear infinite',
         marquee2: 'marquee2 25s linear infinite',
       },
+      fontSize: {
+        '1.5xl': '1.375rem', // This is a size between xl and 2xl
+      },
       keyframes: {
         marquee: {
           '0%': { transform: 'translateX(0%)' },
