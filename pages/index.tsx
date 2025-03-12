@@ -191,7 +191,7 @@ export default function Index() {
                 expertise in Green Electronics, Renewable Energy, Robotics and
                 Automation,Photonics, Artificial Intelligence, Cyber-Physical
                 Systems, Quantum Mechanics, and Computing from <span> </span>
-                <span className="animated-date">
+                <span>
                   <span> </span>
                   <span>N</span>
                   <span>o</span>

@@ -3,7 +3,7 @@ import React from 'react'
 function Papers() {
   return (
     <div className="bg-light-blue-100 mt-10 py-10">
-      <aside className="mx-auto max-w-4xl transform rounded-lg bg-white p-6 shadow-lg transition duration-500 ease-in-out hover:scale-105 hover:shadow-xl sm:p-8 lg:p-12">
+      <aside className="mx-auto max-w-4xl transform rounded-lg bg-white p-6 shadow-lg transition duration-500 ease-in-out hover:shadow-xl sm:p-8 lg:p-12">
         <div className="text-center">
           <p className="animate-fade-in text-3xl font-bold text-blue-700 sm:text-5xl">
             Conference Tracks
