@@ -20,13 +20,17 @@ export default function Index() {
             style={{ padding: '3rem' }}
           >
             <HeaderImages />
-            <div className="flex  w-full items-center justify-center ">
-              <div className="rounded-3xl bg-gray-800 bg-opacity-80 px-9 py-5 text-center font-extrabold ">
-                <h1 className="bg bg-gradient-to-r from-yellow-200  via-amber-500 via-orange-600 via-red-600 via-amber-400 to-yellow-300 bg-clip-text text-5xl font-extrabold text-transparent">
-                  WELCOME TO CSITSS-2025
+            <div className="flex w-full items-center justify-center">
+              {/* Updated welcome div with glassmorphism effect */}
+                <div className="backdrop-blur-xl bg-black/30 border border-white/10 shadow-xl rounded-2xl px-9 py-6 text-center font-extrabold transition-all duration-300 hover:bg-black/50 ">
+                <h1 className="text-5xl font-extrabold text-white drop-shadow-lg">
+                  <span className="bg-gradient-to-r from-yellow-500 via-yellow-500 to-yellow-500 bg-clip-text text-transparent">
+                  CSITSS-2025
+                  </span>
                 </h1>
+                <div className="h-1 w-32 mx-auto my-3 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-500 rounded-full"></div>
                 <p className="mt-4 text-xl text-white md:mt-0 md:text-2xl">
-                  <span className="font-normal ">
+                  <span className="font-normal">
                     9<sup>th</sup> International Conference on Computational
                     Systems and Information Technology for Sustainable Solutions
                   </span>
@@ -35,7 +39,7 @@ export default function Index() {
                 <p className="align-text-center text-xl font-normal text-slate-50">
                   Organized by
                 </p>
-                <p className="text-align-center text-2xl text-slate-50">
+                <p className="text-align-center text-2xl text-slate-50 text-yellow-400">
                   <h4>
                     RV College of Engineering<sup className="text-lg">®</sup>
                   </h4>
@@ -74,14 +78,16 @@ export default function Index() {
             </div>
           </div>
         </header>
-        <div className="mt-4 w-full rounded-lg bg-blue-200 bg-opacity-50 py-4 px-6 text-center text-black shadow-lg">
+        {/* Updated "Organized by" section with glassmorphism */}
+        <div className="mt-4 w-full rounded-lg backdrop-blur-sm bg-blue-100/60 border-b-4 border-blue-500 py-4 px-6 text-center text-black shadow-lg transition-all duration-300 hover:shadow-xl">
           <p className="text-lg font-semibold">
             Organized by{' '}
-            <span className="text-blue-700">RV College of Engineering</span>
+            <span className="text-blue-700 font-bold">RV College of Engineering</span>
           </p>
         </div>
+        {/* Updated info boxes with minimalistic design */}
         <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-          <div className="rounded-lg bg-red-100 p-6 text-center text-gray-800 shadow-lg transition-colors duration-300 hover:bg-red-200">
+          <div className="rounded-lg bg-white p-6 text-center text-gray-800 shadow-lg border-b-4 border-red-400 transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px]">
             <svg
               className="mx-auto mb-4 h-12 w-12 text-red-500"
               xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +105,7 @@ export default function Index() {
             <h3 className="text-2xl font-bold">November 20-22, 2025</h3>
             <p>Date</p>
           </div>
-          <div className="rounded-lg bg-green-100 p-6 text-center text-gray-800 shadow-lg transition-colors duration-300 hover:bg-green-200">
+          <div className="rounded-lg bg-white p-6 text-center text-gray-800 shadow-lg border-b-4 border-green-400 transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px]">
             <svg
               className="mx-auto mb-4 h-12 w-12 text-green-500"
               xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +123,7 @@ export default function Index() {
             <h3 className="text-2xl font-bold">RV College of Engineering</h3>
             <p>Venue</p>
           </div>
-          <div className="rounded-lg bg-blue-100 p-6 text-center text-gray-800 shadow-lg transition-colors duration-300 hover:bg-blue-200">
+          <div className="rounded-lg bg-white p-6 text-center text-gray-800 shadow-lg border-b-4 border-blue-400 transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px]">
             <svg
               className="mx-auto mb-4 h-12 w-12 text-blue-500"
               xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +143,7 @@ export default function Index() {
 
 
           </div>
-          <div className="rounded-lg bg-yellow-100 p-6 text-center text-gray-800 shadow-lg transition-colors duration-300 hover:bg-yellow-200">
+          <div className="rounded-lg bg-white p-6 text-center text-gray-800 shadow-lg border-b-4 border-yellow-400 transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px]">
             <svg
               className="mx-auto mb-4 h-12 w-12 text-yellow-500"
               xmlns="http://www.w3.org/2000/svg"

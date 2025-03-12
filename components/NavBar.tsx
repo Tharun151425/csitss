@@ -245,34 +245,42 @@ const NavBar = () => {
 
 const Footer = () => {
   return (
-    <footer className="static bottom-0 w-full bg-gray-50">
-      <div
-        className="mainDiv mx-auto flex max-w-screen-xl flex-col items-center px-4 py-16 sm:px-6 lg:block lg:px-8"
-        style={{ padding: '10px' }}
-      >
-        <a className="flex items-center justify-around" href="/">
-          <Image src="/logo_rvce.jpg" alt="logo" className="m-5 h-full w-20" />
-        </a>
-        <a>
-          <Center>
-            <Image
+    <footer className="w-full bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg">
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div className="flex justify-center md:justify-start">
+            <a href="/" className="transition-transform duration-300 hover:scale-105">
+              <img 
+              src="/logo_rvce.jpg" 
+              alt="RVCE logo" 
+              className="h-20 w-20 rounded-full bg-white p-1 shadow-md transition-shadow duration-300 hover:shadow-yellow-300/50 hover:shadow-lg" 
+              />
+            </a>
+            </div>
+          
+            <div className="flex justify-center relative">
+              <img
               src="https://i.ibb.co/dBDxKQt/GO-CHANGE-THE-WORLD.png"
               alt="GO-CHANGE-THE-WORLD"
-              className="m-5 h-full w-48"
-            />
-          </Center>
-        </a>
-        <div className="flex flex-col items-center justify-center">
-          <h1 className="font-extrabold uppercase text-blue-800">
-            RV College of Engineering
-          </h1>
-          <h2 className="text-center">
-            RV Vidyanikethan Post, Mysuru Road Bengaluru - 560059
-          </h2>
+              className="h-16 object-contain"
+              style={{ filter: 'drop-shadow(0 0 5px rgba(255, 255, 10, 1)) drop-shadow(0 0 10px rgba(255, 255, 10, 1))' }}
+              />
+            </div>
+          
+          <div className="flex flex-col items-center md:items-end text-center md:text-right">
+            <h1 className="text-xl font-bold uppercase text-yellow-300">
+              RV College of Engineering
+            </h1>
+            <h2 className="text-base text-blue-100 mt-1">
+              RV Vidyanikethan Post, Mysuru Road<br />Bengaluru - 560059
+            </h2>
+          </div>
         </div>
-        <div className="abc mt-8 border-t border-gray-100 pt-8 sm:flex sm:items-center sm:justify-between">
+        
+        <div className="mt-8 pt-6 border-t border-blue-700 flex flex-col md:flex-row justify-between items-center">
+          {/* Copyright */}
           <div>
-            <p className="text-center text-xs text-gray-900">
+            <p className="text-base text-blue-100">
               &copy; 2022
               {new Date().getFullYear() > 2022
                 ? `-${new Date().getFullYear()}`
@@ -280,35 +288,40 @@ const Footer = () => {
               IEEE RVCE
             </p>
           </div>
-          <div>
-            <p className="text-sm text-gray-500">
-              <Center>Developed by</Center>
+          
+          {/* Developer Credits */}
+          <div className="mt-4 md:mt-0">
+            <p className="text-base text-blue-200">
+              <span className="block md:inline text-center">Developed by</span>{' '}
               <a
                 target="_blank"
-                className="font-bold text-indigo-500"
+                className="font-bold text-yellow-300 hover:text-yellow-200 transition-colors duration-300 inline-flex items-center group"
                 href="https://ieee-rvce.org/#/devs"
                 rel="noreferrer"
               >
                 IEEE RVCE SE Team
+                <svg 
+                  className="ml-1 w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
               </a>
             </p>
           </div>
         </div>
       </div>
+      
+      {/* Responsive Styles */}
       <style jsx>{`
         @media (max-width: 500px) {
           footer {
             padding: 10px;
           }
           .text-xs {
-            font-size: 12px;
-          }
-          .mainDiv {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 5px;
+            font-size: 14px;
           }
         }
         @media (max-width: 1035px) {
@@ -321,8 +334,8 @@ const Footer = () => {
         }
       `}</style>
     </footer>
-  )
-}
+  );
+};
 
 const WrapApp = ({ children }: any) => {
   return (
