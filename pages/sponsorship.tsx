@@ -1,1013 +1,513 @@
-import React from 'react'
-import { Image, Text, ThemeIcon } from '@mantine/core'
+import React, { useState } from 'react';
+import Image from 'next/image';
 
-type SponsorType =
-  | 'platinum'
-  | 'diamond'
-  | 'gold'
-  | 'silver'
-  | 'others'
-  | 'in association with'
+// Define types for our data structure
+type SponsorType = 'platinum' | 'diamond' | 'gold' | 'silver' | 'others' | 'in association with';
 
-type Sponsor = {
-  name: string
-  logo: string
-  link: string
-  description?: string
-  type: SponsorType
+interface Sponsor {
+  name: string;
+  logo: string;
+  link: string;
+  description?: string;
+  type: SponsorType;
+  fullName?: string; // Added full name field
 }
 
-const SponsorsData: Sponsor[] = [
-  // Your existing sponsors data here
-  {
-    name: 'Indian Wind Power Association',
-    logo: 'iwpa.png',
-    link: 'https://windpro.org/',
-    type: 'platinum',
-    description: '',
+// Define color schemes for each sponsor tier - now primarily using blue gradients
+const tierColors = {
+  platinum: {
+    gradient: 'from-blue-600 to-indigo-600',
+    border: 'border-blue-300',
+    shadow: 'shadow-blue-300',
+    text: 'text-blue-700',
+    heading: 'bg-gradient-to-r from-blue-600 to-indigo-600',
+    hr: 'bg-gradient-to-r from-blue-600 via-indigo-400 to-transparent'
   },
-  {
-    name: 'Enerfra Solutions',
-    logo: 'enerfra.png',
-    link: 'https://www.enerfra.com/',
-    type: 'in association with',
-    description: '',
+  diamond: {
+    gradient: 'from-blue-500 to-cyan-500',
+    border: 'border-blue-200',
+    shadow: 'shadow-blue-300',
+    text: 'text-blue-700',
+    heading: 'bg-gradient-to-r from-blue-500 to-cyan-500',
+    hr: 'bg-gradient-to-r from-blue-500 via-cyan-400 to-transparent'
   },
-  {
-    name: 'Torrent Power Limited',
-    logo: 'torrent.png',
-    link: 'https://www.torrentpower.com/',
-    type: 'in association with',
-    description: '',
+  gold: {
+    gradient: 'from-blue-400 to-sky-600',
+    border: 'border-blue-200',
+    shadow: 'shadow-blue-300',
+    text: 'text-blue-700',
+    heading: 'bg-gradient-to-r from-blue-400 to-sky-600',
+    hr: 'bg-gradient-to-r from-blue-400 via-sky-300 to-transparent'
   },
-  {
-    name: 'Apraava Energy Private Ltd',
-    logo: 'Apraava Energy.png',
-    link: 'https://www.apraava.com//',
-    type: 'in association with',
-    description: '',
+  silver: {
+    gradient: 'from-blue-300 to-blue-500',
+    border: 'border-blue-200',
+    shadow: 'shadow-blue-300',
+    text: 'text-blue-700',
+    heading: 'bg-gradient-to-r from-blue-300 to-blue-500',
+    hr: 'bg-gradient-to-r from-blue-300 via-blue-400 to-transparent'
   },
-  {
-    name: 'Vena Energy Infrastructures Service Private Ltd',
-    logo: 'Vena Energy.png',
-    link: 'https://www.venaenergy.com/',
-    type: 'in association with',
-    description: '',
+  'in association with': {
+    gradient: 'from-blue-500 to-indigo-600',
+    border: 'border-blue-200',
+    shadow: 'shadow-blue-300',
+    text: 'text-blue-700',
+    heading: 'bg-gradient-to-r from-blue-500 to-indigo-600',
+    hr: 'bg-gradient-to-r from-blue-500 via-indigo-300 to-transparent'
   },
-  {
-    name: 'MSPL Limited',
-    logo: 'mspl.jpeg',
-    link: 'https://baldota.co.in/mspl-limited',
-    type: 'in association with',
-    description: '',
-  },
-  {
-    name: 'BluePine Energy',
-    logo: 'bluePine.jpg',
-    link: 'https://blupineenergy.com/',
-    type: 'in association with',
-    description: '',
-  },
-  {
-    name: 'Synaptics India Pvt Ltd',
-    logo: 'Synaptics.png',
-    link: 'https://www.synaptics.com//',
-    type: 'diamond',
-    description: '',
-  },
-  {
-    name: 'LAPP India Pvt Ltd',
-    logo: 'LAPP.png',
-    link: 'https://www.lapp.com/en/fr/',
-    type: 'gold',
-    description: '',
-  },
-  {
-    name: 'BIA Ventures Pvt Ltd',
-    logo: 'ather.jpg',
-    link: 'https://www.atherenergy.com/',
-    type: 'gold',
-    description: '',
-  },
-  {
-    name: 'Arcadis',
-    logo: 'arcadis.png',
-    link: 'https://www.arcadis.com',
-    type: 'gold',
-    description: '',
-  },
-  {
-    name: 'Log 9 Materials Scientific Pvt Ltd',
-    logo: 'Log9.png',
-    link: 'https://www.log9materials.com/',
-    type: 'silver',
-    description: '',
-  },
-  {
-    name: 'Essen Electrical Enterprise',
-    logo: 'essen.png',
-    link: 'https://www.essenelectric.com/',
-    type: 'silver',
-    description: '',
-  },
-  {
-    name: 'JVS Electronics Pvt Ltd',
-    logo: 'jvs.png',
-    link: 'https://www.jvselectronics.in/',
-    type: 'others',
-    description: '',
-  },
-  {
-    name: 'Anandi Developers and Constructors',
-    logo: 'ADC.jpg',
-    link: 'https://www.adc.com/',
-    type: 'others',
-    description: '',
-  },
-  {
-    name: 'Bosch Rexroth (India) Private Limited',
-    logo: 'rexroth.png',
-    link: 'https://www.ARCTICTERN.com/',
-    type: 'others',
-    description: '',
-  },
+  others: {
+    gradient: 'from-blue-400 to-teal-500',
+    border: 'border-blue-200',
+    shadow: 'shadow-blue-300',
+    text: 'text-blue-700',
+    heading: 'bg-gradient-to-r from-blue-400 to-teal-500',
+    hr: 'bg-gradient-to-r from-blue-400 via-teal-300 to-transparent'
+  }
+};
 
-  // {
-  //   name: "Dept. of TE (RVCE)",
-  //   logo: "",
-  //   link: "https://rvce.edu.in/tc-menu",
-  //   type: "others",
-  //   description: "",
-  // },
-  {
-    name: 'Orbit Techsol India Private Ltd',
-    logo: 'orbit.png',
-    link: 'https://www.orbitindia.net/',
-    type: 'others',
-    description: '',
+// Sample sponsor data with full names
+const SponsorsData2024: Sponsor[] = [
+  { 
+    name: 'ATDXT', 
+    fullName: 'ATDXT Technologies Private Limited',
+    logo: '/sponsors/atdxt.png', 
+    link: 'https://www.atdxt.com/', 
+    type: 'platinum', 
+    description: '' 
   },
-  {
-    name: 'Arctictern Solutions',
-    logo: 'ARCTICTERN.png',
-    link: 'https://www.ARCTICTERN.com/',
-    type: 'others',
-    description: '',
+  { 
+    name: 'Chamundi Sugars', 
+    fullName: 'Chamundeswari Sugars Limited',
+    logo: '/sponsors/chamundeswari.jpg', 
+    link: 'https://chamundeswarisugars.in/', 
+    type: 'gold', 
+    description: '' 
   },
-  {
-    name: 'Book Paradise',
-    logo: 'bookParadise.png',
-    link: 'https://booksparadise.in/',
-    type: 'others',
-    description: '',
+  { 
+    name: 'CtrlS', 
+    fullName: 'CtrlS Datacenters Ltd',
+    logo: '/sponsors/CtrlS.png', 
+    link: 'https://www.ctrls.in/', 
+    type: 'silver', 
+    description: '' 
   },
-  {
-    name: 'S K Publishers',
-    logo: 'sk.png',
-    link: '#',
-    type: 'others',
-    description: '',
+  { 
+    name: 'Arcadis', 
+    fullName: 'Arcadis N.V.',
+    logo: '/sponsors/Arcadis.jpg', 
+    link: 'https://www.arcadis.com', 
+    type: 'silver', 
+    description: '' 
   },
-  // {
-  //   name: "Advance Controls",
-  //   logo: "",
-  //   link: "",
-  //   type: "others",
-  //   description: "",
-  // },
-  // {
-  //   name: "Vijayavani Paper News Coverage",
-  //   logo: "",
-  //   link: "",
-  //   type: "others",
-  //   description: "",
-  // },
+  { 
+    name: 'Universal AutoFoundry Limited', 
+    fullName: 'Universal AutoFoundry Limited',
+    logo: 'https://assets-netstorage.groww.in/stock-assets/logos/GSTK539314.png', 
+    link: 'https://ufindia.com/', 
+    type: 'silver', 
+    description: '' 
+  },
+  { 
+    name: 'MathWorks', 
+    fullName: 'The MathWorks, Inc.',
+    logo: '/sponsors/mathworks.png', 
+    link: 'https://in.mathworks.com/', 
+    type: 'others', 
+    description: '' 
+  },
+  { 
+    name: 'Ganesha Enterprise', 
+    fullName: 'Ganesha Enterprise, Bangalore',
+    logo: '/sponsors/Ganesha.png', 
+    link: '#', 
+    type: 'others', 
+    description: '' 
+  },
+  { 
+    name: 'Canara Bank', 
+    fullName: 'Canara Bank',
+    logo: '/sponsors/canara_bank.jpg', 
+    link: 'https://canarabank.com/', 
+    type: 'others', 
+    description: '' 
+  },
+  { 
+    name: 'Orbit Techsol', 
+    fullName: 'Orbit Techsol India Private Limited',
+    logo: '/sponsors/orbit.png', 
+    link: 'https://www.orbitindia.net/#', 
+    type: 'others', 
+    description: '' 
+  },
+  { 
+    name: 'Women in Cloud', 
+    fullName: 'Women in Cloud',
+    logo: '/sponsors/women.jpg', 
+    link: 'https://womenincloud.com/', 
+    type: 'others', 
+    description: '' 
+  }
+];
 
-  // Add more sponsors as needed
-]
+// Fixed 2023 sponsor data with leading slashes in image paths and full names
+const SponsorsData2023: Sponsor[] = [
+  { 
+    name: 'IWPA', 
+    fullName: 'Indian Wind Power Association',
+    logo: '/sponsors/iwpa.png', 
+    link: 'https://windpro.org/', 
+    type: 'platinum', 
+    description: '' 
+  },
+  { 
+    name: 'Enerfra Solutions', 
+    fullName: 'Enerfra Solutions Private Limited',
+    logo: '/sponsors/enerfra.png', 
+    link: 'https://www.enerfra.com/', 
+    type: 'in association with', 
+    description: '' 
+  },
+  { 
+    name: 'Torrent Power', 
+    fullName: 'Torrent Power Limited',
+    logo: '/sponsors/torrent.png', 
+    link: 'https://www.torrentpower.com/', 
+    type: 'in association with', 
+    description: '' 
+  },
+  { 
+    name: 'Apraava Energy', 
+    fullName: 'Apraava Energy Private Ltd',
+    logo: '/sponsors/Apraava Energy.png', 
+    link: 'https://www.apraava.com//', 
+    type: 'in association with', 
+    description: '' 
+  },
+  { 
+    name: 'Vena Energy', 
+    fullName: 'Vena Energy Infrastructures Service Private Ltd',
+    logo: '/sponsors/Vena Energy.png', 
+    link: 'https://www.venaenergy.com/', 
+    type: 'in association with', 
+    description: '' 
+  },
+  { 
+    name: 'MSPL Limited', 
+    fullName: 'MSPL Limited',
+    logo: '/sponsors/mspl.jpeg', 
+    link: 'https://baldota.co.in/mspl-limited', 
+    type: 'in association with', 
+    description: '' 
+  },
+  { 
+    name: 'BluePine Energy', 
+    fullName: 'BluePine Energy',
+    logo: '/sponsors/bluePine.jpg', 
+    link: 'https://blupineenergy.com/', 
+    type: 'in association with', 
+    description: '' 
+  },
+  { 
+    name: 'Synaptics', 
+    fullName: 'Synaptics India Pvt Ltd',
+    logo: '/sponsors/Synaptics.png', 
+    link: 'https://www.synaptics.com//', 
+    type: 'diamond', 
+    description: '' 
+  },
+  { 
+    name: 'LAPP India', 
+    fullName: 'LAPP India Pvt Ltd',
+    logo: '/sponsors/LAPP.png', 
+    link: 'https://www.lapp.com/en/fr/', 
+    type: 'gold', 
+    description: '' 
+  },
+  { 
+    name: 'BIA Ventures', 
+    fullName: 'BIA Ventures Pvt Ltd',
+    logo: '/sponsors/ather.jpg', 
+    link: 'https://www.atherenergy.com/', 
+    type: 'gold', 
+    description: '' 
+  },
+  { 
+    name: 'Arcadis', 
+    fullName: 'Arcadis N.V.',
+    logo: '/sponsors/arcadis.png', 
+    link: 'https://www.arcadis.com', 
+    type: 'gold', 
+    description: '' 
+  },
+  { 
+    name: 'Log 9 Materials', 
+    fullName: 'Log 9 Materials Scientific Pvt Ltd',
+    logo: '/sponsors/Log9.png', 
+    link: 'https://www.log9materials.com/', 
+    type: 'silver', 
+    description: '' 
+  },
+  { 
+    name: 'Essen Electrical', 
+    fullName: 'Essen Electrical Enterprise',
+    logo: '/sponsors/essen.png', 
+    link: 'https://www.essenelectric.com/', 
+    type: 'silver', 
+    description: '' 
+  },
+  { 
+    name: 'JVS Electronics', 
+    fullName: 'JVS Electronics Pvt Ltd',
+    logo: '/sponsors/jvs.png', 
+    link: 'https://www.jvselectronics.in/', 
+    type: 'others', 
+    description: '' 
+  },
+  { 
+    name: 'Anandi Developers', 
+    fullName: 'Anandi Developers and Constructors',
+    logo: '/sponsors/ADC.jpg', 
+    link: 'https://www.adc.com/', 
+    type: 'others', 
+    description: '' 
+  },
+  { 
+    name: 'Bosch Rexroth', 
+    fullName: 'Bosch Rexroth (India) Private Limited',
+    logo: '/sponsors/rexroth.png', 
+    link: 'https://www.ARCTICTERN.com/', 
+    type: 'others', 
+    description: '' 
+  },
+  { 
+    name: 'Orbit Techsol', 
+    fullName: 'Orbit Techsol India Private Ltd',
+    logo: '/sponsors/orbit.png', 
+    link: 'https://www.orbitindia.net/', 
+    type: 'others', 
+    description: '' 
+  },
+  { 
+    name: 'Arctictern Solutions', 
+    fullName: 'Arctictern Solutions',
+    logo: '/sponsors/ARCTICTERN.png', 
+    link: 'https://www.ARCTICTERN.com/', 
+    type: 'others', 
+    description: '' 
+  },
+  { 
+    name: 'Book Paradise', 
+    fullName: 'Book Paradise',
+    logo: '/sponsors/bookParadise.png', 
+    link: 'https://booksparadise.in/', 
+    type: 'others', 
+    description: '' 
+  },
+  { 
+    name: 'S K Publishers', 
+    fullName: 'S K Publishers',
+    logo: '/sponsors/sk.png', 
+    link: '#', 
+    type: 'others', 
+    description: '' 
+  },
+];
+
+const SponsorCard: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => {
+  const tierStyle = tierColors[sponsor.type];
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <a 
+      href={sponsor.link} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className={`group w-64 transform transition-all duration-300 hover:scale-102 m-4`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div 
+        className={`h-72 rounded-xl bg-white border-2 ${tierStyle.border} shadow-lg ${tierStyle.shadow} hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col relative`}
+        style={{ boxShadow: isHovered ? '0 10px 25px rgba(0, 0, 0, 0.15)' : '0 4px 12px rgba(0, 0, 0, 0.08)' }}
+      >
+        {/* Logo container */}
+        <div className="flex-1 p-5 flex items-center justify-center bg-white">
+          <div className="w-full h-32 relative flex items-center justify-center overflow-hidden">
+            {sponsor.logo.startsWith('http') ? (
+              <img 
+                src={sponsor.logo} 
+                alt={sponsor.name} 
+                className="max-h-full max-w-full object-contain transition-transform duration-500"
+                style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
+              />
+            ) : (
+              <div className="relative w-full h-full flex items-center justify-center">
+                <Image 
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  width={160}
+                  height={120}
+                  objectFit="contain"
+                  className="transition-transform duration-500"
+                  style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {/* Name container */}
+        <div className={`p-4 bg-gradient-to-r ${tierStyle.gradient} transition-all duration-300 group-hover:bg-opacity-95`}>
+          <h3 className="text-white text-center font-semibold text-xl">{sponsor.name}</h3>
+          {/* Full name shown on hover */}
+          <div 
+            className="text-white text-center text-lg mt-1 opacity-80 h-8 overflow-hidden"
+          >
+            {sponsor.fullName || sponsor.name}
+          </div>
+        </div>
+      </div>
+    </a>
+  );
+};
+
+const SponsorGroup: React.FC<{ 
+  type: SponsorType; 
+  sponsors: Sponsor[];
+  showDivider?: boolean;
+}> = ({ type, sponsors, showDivider = true }) => {
+  if (sponsors.length === 0) return null;
+  
+  const tierStyle = tierColors[type];
+  const displayName = type === 'in association with' 
+    ? 'In Association With' 
+    : type.charAt(0).toUpperCase() + type.slice(1);
+
+  return (
+    <div className="mb-12">
+      {/* Section Heading */}
+      {showDivider ? (
+        <div className="flex items-center mb-8">
+          <h2 
+            className={`text-transparent bg-clip-text ${tierStyle.heading} text-4xl font-bold mr-4`}
+          >
+            {displayName}
+          </h2>
+          <div className={`h-1 flex-grow ${tierStyle.hr} rounded-full`}></div>
+        </div>
+      ) : (
+        <div className="text-center mb-8">
+          <h2 
+            className={`text-transparent bg-clip-text ${tierStyle.heading} text-4xl font-bold inline-block mx-auto`}
+          >
+            {displayName}
+          </h2>
+        </div>
+      )}
+      
+      {/* Sponsors grid */}
+      <div className="flex flex-wrap justify-center items-stretch">
+        {sponsors.map((sponsor) => (
+          <SponsorCard key={`${sponsor.name}-${sponsor.type}`} sponsor={sponsor} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Sponsorship: React.FC = () => {
-  const groupedSponsors: Record<SponsorType, Sponsor[]> = {
+  // Group sponsors by type for 2023
+  const groupedSponsors2023: Record<SponsorType, Sponsor[]> = {
     platinum: [],
-    'in association with': [],
     diamond: [],
     gold: [],
     silver: [],
     others: [],
-  }
+    'in association with': [],
+  };
 
-  SponsorsData.forEach((sponsor) => {
-    groupedSponsors[sponsor.type].push(sponsor)
-  })
+  SponsorsData2023.forEach((sponsor) => {
+    groupedSponsors2023[sponsor.type].push(sponsor);
+  });
 
-  const sponsorGroups = Object.entries(groupedSponsors).map(
-    ([type, sponsors]) => {
-      if (sponsors.length < 1) {
-        return null
-      }
+  // Group sponsors by type for 2024
+  const groupedSponsors2024: Record<SponsorType, Sponsor[]> = {
+    platinum: [],
+    diamond: [],
+    gold: [],
+    silver: [],
+    others: [],
+    'in association with': [],
+  };
 
-      const items = sponsors.map((item) => (
-        <a href={item.link} target="_blank" key={item.name}>
-          <div
-            style={{
-              width: '250px',
-              margin: '0rem 1rem 1rem 0rem',
-              marginTop: type === 'others' ? '1rem' : 0,
-            }}
-          >
-            <div
-              style={{
-                padding: '1rem',
-                borderRadius: '0.5rem',
-                backgroundColor: 'white',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                transition: 'transform 0.2s',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '2.5px solid #ccc',
-                height: '300px',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-              }}
-            >
-              <ThemeIcon
-                variant="light"
-                size={200}
-                radius="md"
-                style={{ background: 'transparent' }}
-              >
-                <Image
-                  src={`/sponsors/${item.logo}`}
-                  alt={item.name}
-                  style={{ background: 'transparent', maxWidth: '100%' }}
-                />
-              </ThemeIcon>
-              <div
-                style={{
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Text
-                  size="md"
-                  className="font-bold text-blue-500"
-                  style={{ textAlign: 'center' }}
-                >
-                  {item.name}
-                </Text>
-              </div>
-            </div>
-          </div>
-        </a>
-      ))
+  SponsorsData2024.forEach((sponsor) => {
+    groupedSponsors2024[sponsor.type].push(sponsor);
+  });
 
-      return (
-        <div key={type} style={{ marginBottom: '2rem' }}>
-          {type !== 'in association with' ? (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <h1
-                style={{
-                  marginRight: '1rem',
-                  background: 'linear-gradient(to right, #ff0000, #800000)',
-                  WebkitBackgroundClip: 'text',
-                  fontSize: '3rem',
-                  fontWeight: 'bold',
-                  color: 'transparent',
-                  alignContent: 'center',
-                }}
-              >
-                {type.charAt(0).toUpperCase() + type.slice(1)}
-              </h1>
-              <hr
-                style={{
-                  background: 'linear-gradient(to right, red, transparent)',
-                  height: '3px',
-                  width: '100%',
-                  marginRight: '1rem',
-                }}
-              />
-            </div>
-          ) : (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <h1
-                style={{
-                  marginRight: '1rem',
-                  background: 'linear-gradient(to right, #ff0000, #800000)',
-                  WebkitBackgroundClip: 'text',
-                  fontSize: '2rem',
-                  fontWeight: 'bold',
-                  color: 'transparent',
-                  alignContent: 'center',
-                  textAlign: 'center',
-                }}
-              >
-                in association with
-              </h1>
-            </div>
-          )}
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}
-          >
-            {items}
-          </div>
-        </div>
-      )
-    }
-  )
+  // Common style for section headers
+  const sectionHeaderStyle = "relative overflow-hidden mb-16 rounded-xl";
+  const gradientOverlayStyle = "absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-90";
+  const blobStyle1 = "absolute -left-20 top-0 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob";
+  const blobStyle2 = "absolute -right-20 bottom-0 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000";
+  const contentStyle = "relative z-10 py-10 px-6 text-center";
 
   return (
-    <div style={{ backgroundColor: 'white', padding: '1rem' }}>
-      {/* New Section: Sponsors of 2024 */}
-      <section
-        style={{
-          margin: 'auto',
-          maxWidth: '75rem',
-          padding: '1rem',
-          position: 'relative',
-        }}
-      >
-        <div
-          style={{
-            background: 'linear-gradient(to right, #ff0000, #800000)',
-            color: 'white',
-            padding: '1rem',
-            borderRadius: '0.5rem',
-            marginBottom: '2rem',
-            textAlign: 'center',
-          }}
-        >
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', margin: 0 }}>
-            Sponsors of 2024
-          </h1>
+    <div className="bg-gray-50 min-h-screen">
+      {/* 2024 Sponsors Section */}
+      <section className="max-w-6xl mx-auto px-4 py-16">
+        {/* Main heading with animated gradient background */}
+        <div className={sectionHeaderStyle}>
+          <div className={gradientOverlayStyle}></div>
+          <div className={blobStyle1}></div>
+          <div className={blobStyle2}></div>
+          
+          <div className={contentStyle}>
+            <h1 className="text-white text-5xl font-bold mb-2">Sponsors of 2024</h1>
+            <p className="text-blue-100 text-lg">Our esteemed partners in making this event possible</p>
+          </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <h1
-            style={{
-              marginRight: '1rem',
-              background: 'linear-gradient(to right, #ff0000, #800000)',
-              WebkitBackgroundClip: 'text',
-              fontSize: '3rem',
-              fontWeight: 'bold',
-              color: 'transparent',
-              alignContent: 'center',
-            }}
-          >
-            Platinum
-          </h1>
-          <hr
-            style={{
-              background: 'linear-gradient(to right, red, transparent)',
-              height: '3px',
-              width: '100%',
-              marginRight: '1rem',
-            }}
-          />
-        </div>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '2rem',
-            flexWrap: 'wrap', // For mobile responsiveness
-          }}
-        >
-          <a
-            href="https://www.atdxt.com/"
-            target="_blank"
-            style={{
-              width: '300px',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '2.5px solid #ccc',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '200px',
-              transition: 'transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            <ThemeIcon
-              variant="light"
-              size={150}
-              radius="md"
-              style={{ background: 'transparent' }}
-            >
-              <Image
-                src={`/sponsors/atdxt.png`}
-                alt="ATDXT"
-                style={{ background: 'transparent', maxWidth: '100%' }}
-              />
-            </ThemeIcon>
-            <Text
-              size="md"
-              style={{
-                marginTop: '0.5rem',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              ATDXT
-            </Text>
-          </a>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <h1
-            style={{
-              marginRight: '1rem',
-              background: 'linear-gradient(to right, #ff0000, #800000)',
-              WebkitBackgroundClip: 'text',
-              fontSize: '3rem',
-              fontWeight: 'bold',
-              color: 'transparent',
-              alignContent: 'center',
-            }}
-          >
-            Gold
-          </h1>
-          <hr
-            style={{
-              background: 'linear-gradient(to right, red, transparent)',
-              height: '3px',
-              width: '100%',
-              marginRight: '1rem',
-            }}
-          />
-        </div>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '2rem',
-            flexWrap: 'wrap', // For mobile responsiveness
-          }}
-        >
-          <a
-            href="https://chamundeswarisugars.in/"
-            target="_blank"
-            style={{
-              width: '300px',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '2.5px solid #ccc',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '200px',
-              transition: 'transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            <ThemeIcon
-              variant="light"
-              size={150}
-              radius="md"
-              style={{ background: 'transparent' }}
-            >
-              <Image
-                src={`/sponsors/chamundeswari.jpg`}
-                alt="Chamundi"
-                style={{ background: 'transparent', maxWidth: '100%' }}
-              />
-            </ThemeIcon>
-            <Text
-              size="md"
-              style={{
-                marginTop: '0.5rem',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              Chamundi Sugars
-            </Text>
-          </a>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <h1
-            style={{
-              marginRight: '1rem',
-              background: 'linear-gradient(to right, #ff0000, #800000)',
-              WebkitBackgroundClip: 'text',
-              fontSize: '3rem',
-              fontWeight: 'bold',
-              color: 'transparent',
-              alignContent: 'center',
-            }}
-          >
-            Silver
-          </h1>
-          <hr
-            style={{
-              background: 'linear-gradient(to right, red, transparent)',
-              height: '3px',
-              width: '100%',
-              marginRight: '1rem',
-            }}
-          />
-        </div>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '2rem',
-            flexWrap: 'wrap', // For mobile responsiveness
-          }}
-        >
-          <a
-            href="https://www.ctrls.in/"
-            target="_blank"
-            style={{
-              width: '300px',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '2.5px solid #ccc',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '220px',
-              transition: 'transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            <ThemeIcon
-              variant="light"
-              size={150}
-              radius="md"
-              style={{ background: 'transparent' }}
-            >
-              <Image
-                src={`/sponsors/CtrlS.png`}
-                alt="Ctrls"
-                style={{ background: 'transparent', maxWidth: '100%' }}
-              />
-            </ThemeIcon>
-            <Text
-              size="md"
-              style={{
-                marginTop: '0.5rem',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              CtrlS
-            </Text>
-          </a>
-          <a
-            href="https://www.arcadis.com"
-            target="_blank"
-            style={{
-              width: '300px',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '2.5px solid #ccc',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '220px',
-              transition: 'transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            <ThemeIcon
-              variant="light"
-              size={150}
-              radius="md"
-              style={{ background: 'transparent' }}
-            >
-              <Image
-                src={`/sponsors/Arcadis.jpg`}
-                alt="Arcadis"
-                style={{ background: 'transparent', maxWidth: '100%' }}
-              />
-            </ThemeIcon>
-            <Text
-              size="md"
-              style={{
-                marginTop: '0.5rem',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              Arcadis
-            </Text>
-          </a>
-          <a
-            href="https://ufindia.com/"
-            target="_blank"
-            style={{
-              width: '300px',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '2.5px solid #ccc',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '220px',
-              transition: 'transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            <ThemeIcon
-              variant="light"
-              size={150}
-              radius="md"
-              style={{ background: 'transparent' }}
-            >
-              <Image
-                src={`https://assets-netstorage.groww.in/stock-assets/logos/GSTK539314.png`}
-                alt="Arcadis"
-                style={{ background: 'transparent', maxWidth: '100%' }}
-              />
-            </ThemeIcon>
-            <Text
-              size="md"
-              style={{
-                marginTop: '0.5rem',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              Universal AutoFoundry Limited
-            </Text>
-          </a>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <h1
-            style={{
-              marginRight: '1rem',
-              background: 'linear-gradient(to right, #ff0000, #800000)',
-              WebkitBackgroundClip: 'text',
-              fontSize: '3rem',
-              fontWeight: 'bold',
-              color: 'transparent',
-              alignContent: 'center',
-            }}
-          >
-            Others
-          </h1>
-          <hr
-            style={{
-              background: 'linear-gradient(to right, red, transparent)',
-              height: '3px',
-              width: '100%',
-              marginRight: '1rem',
-            }}
-          />
-        </div>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '2rem',
-            flexWrap: 'wrap', // For mobile responsiveness
-          }}
-        >
-          <a
-            href="https://in.mathworks.com/"
-            target="_blank"
-            style={{
-              width: '300px',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '2.5px solid #ccc',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '220px',
-              transition: 'transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            <ThemeIcon
-              variant="light"
-              size={150}
-              radius="md"
-              style={{ background: 'transparent' }}
-            >
-              <Image
-                src={`/sponsors/mathworks.png`}
-                alt="Mathworks"
-                style={{ background: 'transparent', maxWidth: '100%' }}
-              />
-            </ThemeIcon>
-            <Text
-              size="md"
-              style={{
-                marginTop: '0.5rem',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              MathWorks
-            </Text>
-          </a>
-          <a
-            href="#"
-            target="_blank"
-            style={{
-              width: '300px',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '2.5px solid #ccc',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '220px',
-              transition: 'transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            <ThemeIcon
-              variant="light"
-              size={150}
-              radius="md"
-              style={{ background: 'transparent' }}
-            >
-              <Image
-                src={`/sponsors/Ganesha.png`}
-                alt="Arcadis"
-                style={{ background: 'transparent', maxWidth: '100%' }}
-              />
-            </ThemeIcon>
-            <Text
-              size="md"
-              style={{
-                marginTop: '0.5rem',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              Ganesha Enterprise, Bangalore
-            </Text>
-          </a>
-          <a
-            href="https://canarabank.com/"
-            target="_blank"
-            style={{
-              width: '300px',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '2.5px solid #ccc',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '220px',
-              transition: 'transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            <ThemeIcon
-              variant="light"
-              size={150}
-              radius="md"
-              style={{ background: 'transparent' }}
-            >
-              <Image
-                src={`/sponsors/canara_bank.jpg`}
-                alt="Canara Bank"
-                style={{ background: 'transparent', maxWidth: '100%' }}
-              />
-            </ThemeIcon>
-            <Text
-              size="md"
-              style={{
-                marginTop: '0.5rem',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              Canara Bank
-            </Text>
-          </a>
-          <a
-            href="https://www.orbitindia.net/#"
-            target="_blank"
-            style={{
-              width: '300px',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '2.5px solid #ccc',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '220px',
-              transition: 'transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            <ThemeIcon
-              variant="light"
-              size={150}
-              radius="md"
-              style={{ background: 'transparent' }}
-            >
-              <Image
-                src={`/sponsors/orbit.png`}
-                alt="Orbit Techsol"
-                style={{ background: 'transparent', maxWidth: '100%' }}
-              />
-            </ThemeIcon>
-            <Text
-              size="md"
-              style={{
-                marginTop: '0.5rem',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              Orbit Techsol
-            </Text>
-          </a>
-          <a
-            href="https://womenincloud.com/"
-            target="_blank"
-            style={{
-              width: '300px',
-              padding: '1rem',
-              borderRadius: '0.5rem',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              border: '2.5px solid #ccc',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '220px',
-              transition: 'transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            <ThemeIcon
-              variant="light"
-              size={150}
-              radius="md"
-              style={{ background: 'transparent' }}
-            >
-              <Image
-                src={`/sponsors/women.jpg`}
-                alt="Women in Cloud"
-                style={{ background: 'transparent', maxWidth: '100%' }}
-              />
-            </ThemeIcon>
-            <Text
-              size="md"
-              style={{
-                marginTop: '0.5rem',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              Women in Cloud
-            </Text>
-          </a>
-        </div>
+        
+        {/* Display sponsors by tier */}
+        {Object.entries(groupedSponsors2024).map(([type, sponsors]) => 
+          sponsors.length > 0 ? (
+            <SponsorGroup 
+              key={type} 
+              type={type as SponsorType} 
+              sponsors={sponsors} 
+            />
+          ) : null
+        )}
       </section>
-
-      {/* Existing Section: Special thanks to Sponsors of CSITSS-2023 */}
-      <section
-        style={{
-          margin: 'auto',
-          maxWidth: '75rem',
-          padding: '1rem',
-          position: 'relative',
-        }}
-      >
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            margin: '0 auto',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            background: `url(https://img.freepik.com/free-photo/abstract-luxury-soft-red-background-christmas-valentines-layout-design-web-template-business-report-with-smooth-circle-gradient-color_1258-54733.jpg)`,
-            minHeight: '90px',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            padding: '10px',
-            textAlign: 'center',
-          }}
-        >
-          <p
-            style={{
-              fontSize: '1.8rem',
-              fontWeight: 'bold',
-              color: 'white',
-              margin: 0,
-              padding: '0 10px',
-              maxWidth: '90%',
-              wordWrap: 'break-word',
-            }}
-          >
-            Special thanks to Sponsors of CSITSS-2023
-          </p>
+      
+      {/* 2023 Sponsors Section - using the same blue gradient styling as 2024 section */}
+      <section className="bg-gradient-to-b from-gray-100 to-gray-200 py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          {/* Section heading - now using the same style as the 2024 section */}
+          <div className={sectionHeaderStyle}>
+            <div className={gradientOverlayStyle}></div>
+            <div className={blobStyle1}></div>
+            <div className={blobStyle2}></div>
+            
+            <div className={contentStyle}>
+              <h2 className="text-white text-5xl font-bold mb-2">Sponsors of CSITSS-2023</h2>
+              <p className="text-blue-100 text-lg">Special thanks to our previous supporters</p>
+            </div>
+          </div>
+          
+          {/* Display 2023 sponsors by tier */}
+          {Object.entries(groupedSponsors2023).map(([type, sponsors]) => 
+            sponsors.length > 0 ? (
+              <SponsorGroup 
+                key={type} 
+                type={type as SponsorType} 
+                sponsors={sponsors} 
+              />
+            ) : null
+          )}
         </div>
-
-        {sponsorGroups}
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default Sponsorship
+export default Sponsorship;

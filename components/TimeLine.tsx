@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, Clock, Download, X } from 'lucide-react';
+import Link from 'next/link';
 
 const CustomTimeline = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -107,13 +108,25 @@ const CustomTimeline = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <button
-            onClick={handleDownload}
-            className="inline-flex items-center text-lg justify-center rounded-lg border border-indigo-600 bg-indigo-600 px-8 py-3 text-white font-semibold transition-colors duration-300 hover:bg-indigo-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 active:bg-indigo-500"
-          >
-            <Download className="w-6 h-6 mr-5" />
-            Download Pre-Conference Schedule
-          </button>
+          <Link href="/downloads/PhD-Results.pdf" passHref>
+            <a className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-blue-700 rounded-md shadow-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 group">
+              <span>Download Pre-Conference Schedule</span>
+              <svg 
+          className="ml-5 h-5 w-5 transform transition-transform duration-300 group-hover:translate-y-1" 
+          xmlns="http://www.w3.org/2000/svg" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+              >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={3} 
+            d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+          />
+              </svg>
+            </a>
+          </Link>
         </div>
       </div>
     </div>

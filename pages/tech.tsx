@@ -1,5 +1,4 @@
 import {   Tabs } from '@mantine/core'
-// import { List,Center } from '@mantine/core'
 
 import React from 'react'
 

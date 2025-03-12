@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { AppShell, Center, Header, Image, Menu } from '@mantine/core'
+import { AppShell, Center, Header, Image, Drawer, Burger, Menu } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 import Link from 'next/link'
 import Marquee from 'react-fast-marquee'
 
@@ -16,29 +17,81 @@ const Links = [
   { href: '/contact', label: 'Contact Us' },
 ]
 
+const MobileNav = ({ opened, onClose }: { opened: boolean; onClose: () => void }) => {
+  return (
+    <Drawer
+      opened={opened}
+      onClose={onClose}
+      // title={
+      //   <div className="flex items-center space-x-3">
+      //     <Image
+      //       src="RVCE NEW-HEADER_onlyLogo.png"
+      //       alt="CSITSS Logo"
+      //       width={40}
+      //       height={40}
+      //     />
+      //     <span className="text-blue-900 font-semibold text-xl">CSITSS</span>
+      //   </div>
+      // }
+      padding="xl"
+      size="xs"
+      position="right"
+      zIndex={1000}
+      styles={{
+        drawer: {
+          background: 'white',
+        },
+        title: {
+          marginBottom: '1rem',
+        },
+      }}
+    >
+      <div className="flex flex-col space-y-4">
+        {Links.map((link) => (
+          <Link href={link.href} key={link.label}>
+            <a
+              onClick={onClose}
+              className="text-gray-700 hover:text-blue-700 hover:bg-blue-50 px-4 py-2 rounded-lg transition-colors duration-200 text-lg font-medium"
+            >
+              {link.label}
+            </a>
+          </Link>
+        ))}
+        <div className="border-t border-gray-200 mt-4 pt-4">
+          <p className="text-blue-700 font-semibold text-lg px-4 mb-3">
+            Download Links
+          </p>
+          {/* Add your download links here */}
+        </div>
+      </div>
+    </Drawer>
+  )
+}
+
 const NavBar = () => {
+  const [mobileOpened, { toggle: toggleMobile, close: closeMobile }] = useDisclosure(false);
+
   return (
     <header>
       <div className="navbar mx-auto w-full bg-gradient-to-r from-blue-900 to-blue-700 p-2 shadow-lg">
         <div className="flex items-center justify-between space-x-4 lg:space-x-10">
           <div className="flex lg:w-0 lg:flex-1">
-          <Link href="/">
-  <a className="flex items-center pl-4 md:pl-8 lg:pl-14 transition-transform duration-300 ease-in-out">
-    <div className="bg-white rounded-full p-2.5 shadow-md hover:shadow-yellow-300/50 hover:shadow-lg transition-all duration-300">
-      <Image
-        src="RVCE NEW-HEADER_onlyLogo.png"
-        alt="CSITSS Logo"
-        className="logo w-[60px] h-[60px] md:w-[60px] md:h-[60px] lg:w-[60px] lg:h-[60px]"
-        width={60}
-        height={60}
-      />
-    </div>
-  </a>
-</Link>
-
+            <Link href="/">
+              <a className="flex items-center pl-4 md:pl-8 lg:pl-14 transition-transform duration-300 ease-in-out">
+                <div className="bg-white rounded-full p-2.5 shadow-md hover:shadow-yellow-300/50 hover:shadow-lg transition-all duration-300">
+                  <Image
+                    src="RVCE NEW-HEADER_onlyLogo.png"
+                    alt="CSITSS Logo"
+                    className="logo w-[60px] h-[60px] md:w-[60px] md:h-[60px] lg:w-[60px] lg:h-[60px]"
+                    width={60}
+                    height={60}
+                  />
+                </div>
+              </a>
+            </Link>
           </div>
+
           <nav className="hidden space-x-8 lg:space-x-12 text-1.5xl font-medium md:flex p-4">
-            {/* Only keeping 5 links which are imp and rest all in hamburger */}
             {Links.filter(link => 
               ['Home', 'About', 'Call for Papers', 'Registration', 'Contact Us'].includes(link.label)
             ).map((link) => (
@@ -49,19 +102,24 @@ const NavBar = () => {
               </Link>
             ))}
           </nav>
+
           <div className="hidden items-center justify-end space-x-8 md:flex-1 lg:flex lg:w-0 pr-4 md:pr-8 lg:pr-16">
             <Menu
-              shadow="lg"
-              width={240}
-              transition="pop-top-right"
-              transitionDuration={200}
+              shadow="md"
+              position="bottom"
+              withinPortal
+              closeOnItemClick
+              styles={{
+                item: { minWidth: '240px' },
+                itemLabel: { fontSize: '1.1rem' },
+              }}
               control={
                 <button
                   className="bg-blue-800 hover:bg-blue-900 rounded-lg py-2.5 px-4 text-white shadow-md hover:shadow-lg transition-all duration-300 ease-in-out"
                   type="button"
                   name="More Options"
                 >
-                  <span className="text-1.5xl mr-2 hidden lg:inline font-medium">More</span>
+                  <span className="text-1.5xl mr-2 hidden lg:inline font-normal">More</span>
                   <svg
                     aria-hidden="true"
                     className="h-5 w-5 inline-block"
@@ -101,62 +159,25 @@ const NavBar = () => {
               </Menu.Label>
             </Menu>
           </div>
+
           <div className="lg:hidden pr-4">
-            <Menu
-              shadow="lg"
-              width={240}
-              position="bottom-end"
-              transition="pop-top-right"
-              transitionDuration={200}
-              control={
-                <button
-                  className="rounded-lg bg-blue-800 hover:bg-blue-900 p-2.5 text-white shadow-md hover:shadow-lg transition-all duration-300"
-                  type="button"
-                  name="Mobile Navigation Menu"
-                >
-                  <svg
-                    aria-hidden="true"
-                    className="h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 6h16M4 12h16M4 18h16"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                    />
-                  </svg>
-                </button>
-              }
-            >
-              <Menu.Label>
-                <p className="font-sans text-blue-700 font-semibold text-1.5xl px-2 pb-1 border-b border-gray-100">Navigation</p>
-              </Menu.Label>
-              {Links.map((link) => (
-                <Menu.Item key={link.label}>
-                  <Link href={link.href}>
-                    <a className="font-sans text-gray-800 hover:text-blue-700 hover:bg-blue-50 block w-full py-2 px-3 rounded transition-colors duration-200 text-1.5xl">
-                      {link.label}
-                    </a>
-                  </Link>
-                </Menu.Item>
-              ))}
-              <Menu.Label>
-                <p className="font-sans text-blue-700 font-semibold text-1.5xl mt-2 px-2 pb-1 border-b border-gray-100">
-                  Download Links
-                </p>
-              </Menu.Label>
-            </Menu>
+            <Burger
+              opened={mobileOpened}
+              onClick={toggleMobile}
+              color="white"
+              size="sm"
+              className="hover:bg-blue-800 rounded p-1 transition-colors duration-200"
+            />
           </div>
         </div>
       </div>
+
+      <MobileNav opened={mobileOpened} onClose={closeMobile} />
+
       <div className="bg-blue-800 bg-opacity-25 text-white py-0 z-10 border-t border-blue-600 border-opacity-50 shadow-md">
         <Marquee className="marquee overflow-hidden z-10" speed={40} gradientWidth={50}>
           <div className="content1 flex items-center">
-            <span className="ml-20 font-medium text-white text-1.5xl">
+            <span className="ml-20 font-medium text-white text-1xl">
               <span className="text-yellow-300 font-bold mr-2">Important Notice :</span> 
               Our website is currently under construction.  | 
               <span className="ml-2 text-yellow-200">Stay tuned for updates from IEEE CSITSS!</span>
@@ -164,6 +185,7 @@ const NavBar = () => {
           </div>
         </Marquee>
       </div>
+
       <style jsx>{`
         .navbar {
           animation: fadeIn 0.8s ease-in-out;
@@ -213,14 +235,12 @@ const NavBar = () => {
       display: none !important;
     }
     .nav-link {
-      font-size: 14px;
+      font-size: 19px;
     }
   }
-          
-        }
       `}</style>
     </header>
-  )
+  );
 }
 
 const Footer = () => {

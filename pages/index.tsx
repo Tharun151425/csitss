@@ -8,27 +8,12 @@ import Timeline from '../components/TimeLine'
 
 import Gallery from '../components/Gallery'
 
-
-// const image = {
-//   src: 'logo_IEEE_Banaglaore_Section.png',
-//   alt: 'ieee_bangalore_logo',
-//   href: 'https://ieeebangalore.org/',
-//   show: true,
-//   padding: 'pt-6',
-// }
-
 export default function Index() {
 
   return (
     <>
 
       <section className="body-font m-0 text-gray-600">
-        {/* <div className="bar">
-          <span className="bar_content">
-            All of the students register for pre-tutorial conference. Amount to be paid : 590 (Includes GST)
-            <a href="https://rzp.io/l/3N4bwhvH" className="text-gray-600"> Quick Payment Link</a>
-          </span>
-        </div> */}
         <header>
           <div
             className="heroHeader w-full bg-cover bg-center"
