@@ -21,7 +21,6 @@ export default function Index() {
           >
             <HeaderImages />
             <div className="flex w-full items-center justify-center">
-              {/* Updated welcome div with glassmorphism effect */}
                 <div className="backdrop-blur-xl bg-black/30 border border-white/10 shadow-xl rounded-2xl px-9 py-6 text-center font-extrabold transition-all duration-300 hover:bg-black/50 ">
                 <h1 className="text-5xl font-extrabold text-white drop-shadow-lg">
                   <span className="bg-gradient-to-r from-yellow-500 via-yellow-500 to-yellow-500 bg-clip-text text-transparent">

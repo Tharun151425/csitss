@@ -16,39 +16,39 @@ interface Sponsor {
 // Define color schemes for each sponsor tier - now primarily using blue gradients
 const tierColors = {
   platinum: {
-    gradient: 'from-blue-600 to-indigo-600',
+    gradient: 'from-purple-400 to-purple-600',
     border: 'border-blue-300',
     shadow: 'shadow-blue-300',
     text: 'text-blue-700',
-    heading: 'bg-gradient-to-r from-blue-600 to-indigo-600',
-    hr: 'bg-gradient-to-r from-blue-600 via-indigo-400 to-transparent'
+    heading: 'bg-gradient-to-r from-purple-500 to-purple-600',
+    hr: 'bg-gradient-to-r from-purple-600 via-purple-400 to-transparent'
   },
   diamond: {
-    gradient: 'from-blue-500 to-cyan-500',
+    gradient: 'from-blue-400 to-cyan-600',
     border: 'border-blue-200',
     shadow: 'shadow-blue-300',
     text: 'text-blue-700',
-    heading: 'bg-gradient-to-r from-blue-500 to-cyan-500',
+    heading: 'bg-gradient-to-r from-blue-400 to-cyan-600',
     hr: 'bg-gradient-to-r from-blue-500 via-cyan-400 to-transparent'
   },
   gold: {
-    gradient: 'from-blue-400 to-sky-600',
-    border: 'border-blue-200',
-    shadow: 'shadow-blue-300',
-    text: 'text-blue-700',
-    heading: 'bg-gradient-to-r from-blue-400 to-sky-600',
-    hr: 'bg-gradient-to-r from-blue-400 via-sky-300 to-transparent'
+    gradient: 'from-yellow-400 to-yellow-600',
+    border: 'border-yellow-200',
+    shadow: 'shadow-yellow-300',
+    text: 'text-yellow-700',
+    heading: 'bg-gradient-to-r from-yellow-500 to-yellow-600',
+    hr: 'bg-gradient-to-r from-yellow-400 via-yellow-300 to-transparent'
   },
   silver: {
-    gradient: 'from-blue-300 to-blue-500',
-    border: 'border-blue-200',
-    shadow: 'shadow-blue-300',
-    text: 'text-blue-700',
-    heading: 'bg-gradient-to-r from-blue-300 to-blue-500',
-    hr: 'bg-gradient-to-r from-blue-300 via-blue-400 to-transparent'
+    gradient: 'from-gray-400 to-gray-600',
+    border: 'border-gray-200',
+    shadow: 'shadow-gray-300',
+    text: 'text-gray-700',
+    heading: 'bg-gradient-to-r from-gray-400 to-gray-600',
+    hr: 'bg-gradient-to-r from-gray-500 via-gray-400 to-transparent'
   },
   'in association with': {
-    gradient: 'from-blue-500 to-indigo-600',
+    gradient: 'from-blue-400 to-indigo-600',
     border: 'border-blue-200',
     shadow: 'shadow-blue-300',
     text: 'text-blue-700',
